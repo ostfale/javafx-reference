@@ -1,4 +1,4 @@
-package de.ostfale.fx.sample.ui;
+package de.ostfale.fx.sample.common;
 
 import javafx.fxml.FXMLLoader;
 import org.slf4j.Logger;
