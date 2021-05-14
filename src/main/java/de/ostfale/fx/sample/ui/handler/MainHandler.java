@@ -8,6 +8,8 @@ public class MainHandler extends BaseHandler<MainController, AnchorPane> {
 
     public MainHandler() {
         initHandler();
+        uiController = getUiController();
+        uiRoot = getUiRoot();
     }
 
     @Override

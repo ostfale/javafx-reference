@@ -1,10 +1,14 @@
 # FXTest
 
-This Gluon Client sample was generated from https://start.gluon.io
+This reference JavaFX Client has been created from https://start.gluon.io and got some convenience functions for fxml 
+handling (controller/ handler)
 
-## Basic Requirements
 
-A list of the basic requirements can be found online in the [Gluon Client documentation](https://docs.gluonhq.com/client/#_requirements).
+
+## Links
+
++ Start gluon project: https://start.gluon.io
++ Basic requirements: https://docs.gluonhq.com/client/#_requirements
 
 ## Quick instructions
 
