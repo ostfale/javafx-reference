@@ -1,7 +1,9 @@
 package de.ostfale.fx.sample.contacts.domain;
 
+import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.util.Callback;
 
 import java.util.Objects;
 
@@ -19,6 +21,11 @@ public class Person {
         this.lastName.set(lastName);
         this.note.set(note);
     }
+
+    public static Callback<Person, Observable[]> extractor =
+            param -> new Observable[]{
+                    param.lastNameProperty(), param.firstNameProperty()
+            };
 
     @Override
     public String toString() {

@@ -2,7 +2,6 @@ package de.ostfale.fx.sample.contacts.ui;
 
 import de.ostfale.fx.sample.Main;
 import de.ostfale.fx.sample.common.BaseController;
-import de.ostfale.fx.sample.common.DataModel;
 import de.ostfale.fx.sample.contacts.domain.Person;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -65,17 +64,21 @@ public class ContactsController extends BaseController<Person> implements Initia
 
     @FXML
     void createContact(ActionEvent event) {
-
+        Person person = new Person(tf_firstName.getText(), tf_lastName.getText(), ta_note.getText());
+        dataModel.getObjectList().add(person);
     }
 
     @FXML
     void deleteContact(ActionEvent event) {
-
+        dataModel.getObjectList().remove(dataModel.getCurrentObject());
     }
 
     @FXML
     void updateContact(ActionEvent event) {
-
+      var person=  dataModel.getCurrentObject();
+      person.setFirstName(tf_firstName.getText());
+      person.setLastName(tf_lastName.getText());
+      person.setNote(ta_note.getText());
     }
 
     @Override
@@ -91,7 +94,11 @@ public class ContactsController extends BaseController<Person> implements Initia
 
     private void buttonBinding() {
         btn_delete.disableProperty().bind(lst_person.getSelectionModel().selectedItemProperty().isNull());
-        btn_new.disableProperty().bind(modifiedProperty);
+        btn_new.disableProperty().bind(
+                lst_person.getSelectionModel().selectedItemProperty().isNotNull()
+                        .or(tf_firstName.textProperty().isEmpty())
+                        .or(tf_lastName.textProperty().isEmpty())
+        );
         btn_update.disableProperty().bind(lst_person.getSelectionModel().selectedItemProperty().isNull()
                 .or(modifiedProperty.not())
                 .or(tf_firstName.textProperty().isEmpty())
@@ -100,6 +107,7 @@ public class ContactsController extends BaseController<Person> implements Initia
     }
 
     private final ChangeListener<Person> personChangeListener = (obs, oldPerson, newPerson) -> {
+        modifiedProperty.set(false);
         if (oldPerson != null) {
             log.info("Old person: {}", newPerson);
             tf_firstName.textProperty().unbindBidirectional(oldPerson.firstNameProperty());
